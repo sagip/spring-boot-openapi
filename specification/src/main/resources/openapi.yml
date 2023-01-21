@@ -1,0 +1,215 @@
+openapi: 3.0.2
+info:
+  title: JobSeeker
+  description: "Jobseeker application"
+  contact:
+    email: peter.sagi1@gmail.com
+  version: 0.0.1-SNAPSHOT
+
+#servers:
+#- url: https://reflectoring.swagger.io/v2
+
+paths:
+  /position/{positionId}:
+    get:
+      summary: queries positions based on keyword
+      operationId: getPosition
+      parameters:
+      - name: positionId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionFinalResponse'
+        400:
+          description: wrong attribute(s)
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/PositionFinalResponse'
+
+  /position/search:
+    get:
+      summary: queries positions based on keyword
+      operationId: searchPosition
+      parameters:
+      - name: keyword
+        in: query
+        required: true
+        schema:
+          type: string
+          #maxLength: 50
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+          #maxLength: 50
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+#          format: uuid
+          
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/PositionFinalResponse'
+        400:
+          description: wrong attribute(s)
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/PositionFinalResponse'
+
+
+
+  /position:
+    post:
+      summary: Creates a new position
+      operationId: createPosition
+      requestBody:
+        description: Created user object
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Position'
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/PositionFinalResponse'
+        400:
+          description: wrong attribute(s)
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/PositionFinalResponse'
+                
+      x-codegen-request-body-name: body
+      
+  /client:
+    post:
+      summary: creates a new user and returns API key
+      operationId: createClient
+      requestBody:
+        description: Created user object
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ClientResponse'
+        400:
+          description: wrong attribute(s)
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ClientResponse'
+                
+      x-codegen-request-body-name: body
+
+
+
+components:
+  schemas:
+  
+    Client:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+          #maxLength: 100
+        email:
+          type: string
+          #pattern: ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
+          #maxLength: 1000
+          
+
+    ClientResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            uuid:
+              type: string
+  #            format: uuid
+        messages:
+          type: array
+          items:
+            type: string
+        status:
+          type: boolean
+
+    
+          
+    Position:
+      type: object
+      required:
+        - name
+        - location
+        - uuid
+      properties:
+        uuid:
+          type: string
+     #     format: uuid
+          description: 36 chars
+        name:
+          type: string
+          #maxLength: 50
+        location:
+          type: string
+          #maxLength: 50
+    
+    PositionResponse:
+      type: object
+      properties:
+        url:
+          type: string
+        name:
+          type: string
+        location:
+          type: string
+        id:
+          type: integer
+          format: int64
+    
+    PositionFinalResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PositionResponse'
+        messages:
+          type: array
+          items:
+            type: string
+        status:
+          type: boolean
+  
+  

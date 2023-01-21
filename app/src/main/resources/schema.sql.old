@@ -1,0 +1,7 @@
+CREATE TABLE CLIENT (
+    id    INTEGER       NOT NULL AUTO_INCREMENT,
+    name  VARCHAR(50)   NOT NULL,
+	email VARCHAR(1000) NOT NULL,
+	uuid  UUID          NOT NULL,
+    PRIMARY KEY (id)
+);
