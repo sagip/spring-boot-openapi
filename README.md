@@ -11,8 +11,8 @@ A spring-boot-openapi könyvtárban futtatott "mvn install" parancs:
   -  ".\spring-boot-openapi\app\target\java -jar app-0.0.1-SNAPSHOT.jar"
   - adott pozíció lekérdezése: curl localhost:8080/position/2
   - keresés kulcsszó és lokáció alapján: curl -X GET "http://localhost:8080/position/search?keyword=info&location=s&uuid=c58ea483-658e-4f74-8175-6c7057992a03"
-  - új kliens létrehozása: curl -X POST http://localhost:8080/client -H "Content-Type: application/json" -d "{\"name\":\"Kiss Pista\",\"email\":\"pista.kiss@asdf.com\"}"
-  - új pozíció létrehozása: curl -X POST http://localhost:8080/position -H "Content-Type: application/json" -d "{\"name\":\"Kamionos\",\"location\":\"Baja\", \"uuid\":\"c58ea483-658e-4f74-8175-6c7057992a03\"}"
+  - új kliens létrehozása: curl -X POST http://localhost:8080/client -H "Content-Type: application/json" -d "{\\"name\\":\\"Kiss Pista\\",\\"email\\":\\"pista.kiss@asdf.com\\"}"
+  - új pozíció létrehozása: curl -X POST http://localhost:8080/position -H "Content-Type: application/json" -d "{\\"name\\":\\"Kamionos\\",\\"location\\":\\"Baja\\", \\"uuid\\":\\"c58ea483-658e-4f74-8175-6c7057992a03\\"}"
 
 ### Production readiness feladatok
   - követelmények pontosítása:
